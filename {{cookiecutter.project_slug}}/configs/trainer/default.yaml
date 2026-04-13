@@ -1,0 +1,13 @@
+{% if cookiecutter.framework == "pytorch" -%}
+max_epochs: 30
+accelerator: auto
+devices: 1
+log_every_n_steps: 10
+monitor: val/loss
+monitor_mode: min
+patience: 5
+output_dir: artifacts
+tracking_uri: file://./mlruns
+{% else -%}
+output_dir: artifacts
+{% endif -%}

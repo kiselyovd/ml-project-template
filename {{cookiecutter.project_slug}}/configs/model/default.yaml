@@ -1,0 +1,23 @@
+{% if cookiecutter.framework == "pytorch" -%}
+{% if cookiecutter.task_type == "classification" -%}
+name: convnextv2_tiny
+num_classes: 3
+lr: 1e-4
+{% elif cookiecutter.task_type == "segmentation" -%}
+name: segformer_b2
+num_classes: 2
+lr: 1e-4
+{% elif cookiecutter.task_type == "keypoints" -%}
+name: yolo26n
+{% elif cookiecutter.task_type == "nlp" -%}
+name: xlm-roberta-base
+num_labels: 10
+lr: 2e-5
+{% endif -%}
+{% else -%}
+name: lgbm
+params:
+  n_estimators: 500
+  learning_rate: 0.05
+  max_depth: -1
+{% endif -%}

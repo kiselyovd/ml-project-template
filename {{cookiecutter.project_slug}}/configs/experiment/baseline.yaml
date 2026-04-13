@@ -1,0 +1,17 @@
+# @package _global_
+experiment_name: baseline
+{% if cookiecutter.framework == "pytorch" and cookiecutter.task_type == "classification" -%}
+model:
+  name: resnet50
+{% elif cookiecutter.framework == "pytorch" and cookiecutter.task_type == "segmentation" -%}
+model:
+  name: unet
+{% elif cookiecutter.task_type == "nlp" -%}
+model:
+  name: bert-base-multilingual-cased
+{% elif cookiecutter.framework == "sklearn" -%}
+model:
+  name: random_forest
+  params:
+    n_estimators: 300
+{% endif -%}

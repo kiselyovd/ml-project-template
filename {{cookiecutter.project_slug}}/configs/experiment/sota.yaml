@@ -1,0 +1,6 @@
+# @package _global_
+experiment_name: sota
+{% if cookiecutter.framework == "pytorch" -%}
+trainer:
+  max_epochs: 100
+{% endif -%}

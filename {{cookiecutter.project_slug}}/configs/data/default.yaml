@@ -1,0 +1,24 @@
+{% if cookiecutter.framework == "pytorch" -%}
+{% if cookiecutter.task_type in ["classification", "segmentation"] -%}
+data_dir: data/processed
+batch_size: 32
+num_workers: 4
+image_size: 224
+val_split: 0.1
+seed: ${seed}
+{% elif cookiecutter.task_type == "keypoints" -%}
+yaml_path: data/processed/data.yaml
+batch_size: 16
+image_size: 640
+{% elif cookiecutter.task_type == "nlp" -%}
+train_csv: data/processed/train.csv
+val_csv: data/processed/val.csv
+test_csv: data/processed/test.csv
+batch_size: 16
+max_length: 512
+{% endif -%}
+{% else -%}
+csv_path: data/raw/data.csv
+target_col: target
+test_size: 0.2
+{% endif -%}
