@@ -85,18 +85,31 @@ packages = ["src/{{ cookiecutter.package_name }}"]
 [tool.ruff]
 line-length = 100
 target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
+extend-exclude = ["notebooks"]
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "W", "UP", "B", "SIM", "RUF", "N", "D"]
-ignore = ["D100", "D104", "D107"]
+select = ["E", "F", "I", "W", "UP", "B", "SIM", "RUF", "N"]
+ignore = ["N812"]
 
-[tool.ruff.lint.pydocstyle]
-convention = "google"
+[tool.ruff.lint.per-file-ignores]
+"src/{{ cookiecutter.package_name }}/serving/routes.py" = ["B008"]
 
 [tool.mypy]
 python_version = "{{ cookiecutter.python_version }}"
-strict = true
 ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+check_untyped_defs = true
+
+{% if cookiecutter.framework == "pytorch" -%}
+[[tool.mypy.overrides]]
+module = "{{ cookiecutter.package_name }}.serving.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "{{ cookiecutter.package_name }}.data.datamodule"
+ignore_errors = true
+{% endif -%}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

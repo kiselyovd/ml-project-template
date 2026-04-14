@@ -11,7 +11,13 @@ from torchmetrics.classification import MulticlassAccuracy, MulticlassF1Score
 
 
 class ClassificationModule(L.LightningModule):
-    def __init__(self, model: nn.Module, num_classes: int, lr: float = 1e-4) -> None:
+    def __init__(
+        self,
+        model: nn.Module,
+        num_classes: int,
+        lr: float = 1e-4,
+        model_name: str | None = None,
+    ) -> None:
         super().__init__()
         self.model = model
         self.criterion = nn.CrossEntropyLoss()
@@ -44,7 +50,7 @@ class ClassificationModule(L.LightningModule):
         self.log("val/f1_macro", self.val_f1, prog_bar=True)
 
     def configure_optimizers(self) -> optim.Optimizer:
-        return optim.AdamW(self.parameters(), lr=self.hparams.lr)
+        return optim.AdamW(self.parameters(), lr=self.hparams.lr)  # type: ignore[attr-defined]
 {% endif -%}
 
 {% if cookiecutter.task_type == "segmentation" -%}
@@ -52,7 +58,13 @@ from torchmetrics.segmentation import DiceScore, MeanIoU
 
 
 class SegmentationModule(L.LightningModule):
-    def __init__(self, model: nn.Module, num_classes: int, lr: float = 1e-4) -> None:
+    def __init__(
+        self,
+        model: nn.Module,
+        num_classes: int,
+        lr: float = 1e-4,
+        model_name: str | None = None,
+    ) -> None:
         super().__init__()
         self.model = model
         self.criterion = nn.CrossEntropyLoss() if num_classes > 1 else nn.BCEWithLogitsLoss()
@@ -81,7 +93,7 @@ class SegmentationModule(L.LightningModule):
         self.log("val/iou", self.iou, prog_bar=True)
 
     def configure_optimizers(self) -> optim.Optimizer:
-        return optim.AdamW(self.parameters(), lr=self.hparams.lr)
+        return optim.AdamW(self.parameters(), lr=self.hparams.lr)  # type: ignore[attr-defined]
 {% endif -%}
 
 {% if cookiecutter.task_type == "nlp" -%}
@@ -89,7 +101,13 @@ from torchmetrics.classification import MulticlassF1Score
 
 
 class NLPModule(L.LightningModule):
-    def __init__(self, model: nn.Module, num_labels: int, lr: float = 2e-5) -> None:
+    def __init__(
+        self,
+        model: nn.Module,
+        num_labels: int,
+        lr: float = 2e-5,
+        model_name: str | None = None,
+    ) -> None:
         super().__init__()
         self.model = model
         self.val_f1 = MulticlassF1Score(num_classes=num_labels, average="macro")
@@ -109,7 +127,7 @@ class NLPModule(L.LightningModule):
         self.log("val/f1_macro", self.val_f1, prog_bar=True)
 
     def configure_optimizers(self) -> optim.Optimizer:
-        return optim.AdamW(self.parameters(), lr=self.hparams.lr)
+        return optim.AdamW(self.parameters(), lr=self.hparams.lr)  # type: ignore[attr-defined]
 {% endif -%}
 
 {% if cookiecutter.task_type == "keypoints" -%}

@@ -12,16 +12,54 @@ log = get_logger(__name__)
 
 {% if cookiecutter.framework == "pytorch" -%}
 def load_model(checkpoint_path: str | Path):
-    """Load a Lightning module from checkpoint."""
+    """Load a Lightning module from checkpoint, rebuilding the backbone from hparams."""
+{%- if cookiecutter.task_type in ("classification", "segmentation", "nlp") %}
+    import torch
+
+    from ..models import build_model
 {%- if cookiecutter.task_type == "classification" %}
     from ..models import ClassificationModule
-    return ClassificationModule.load_from_checkpoint(str(checkpoint_path))
+
+    ckpt = torch.load(str(checkpoint_path), map_location="cpu", weights_only=False)
+    hp = ckpt.get("hyper_parameters", {})
+    model_name = hp.get("model_name")
+    num_classes = hp.get("num_classes")
+    if model_name is None or num_classes is None:
+        raise ValueError(
+            "Checkpoint missing model_name/num_classes hparams — "
+            "re-train after upgrading ClassificationModule."
+        )
+    backbone = build_model(model_name, num_classes=num_classes, pretrained=False)
+    return ClassificationModule.load_from_checkpoint(str(checkpoint_path), model=backbone)
 {%- elif cookiecutter.task_type == "segmentation" %}
     from ..models import SegmentationModule
-    return SegmentationModule.load_from_checkpoint(str(checkpoint_path))
+
+    ckpt = torch.load(str(checkpoint_path), map_location="cpu", weights_only=False)
+    hp = ckpt.get("hyper_parameters", {})
+    model_name = hp.get("model_name")
+    num_classes = hp.get("num_classes")
+    if model_name is None or num_classes is None:
+        raise ValueError(
+            "Checkpoint missing model_name/num_classes hparams — "
+            "re-train after upgrading SegmentationModule."
+        )
+    backbone = build_model(model_name, num_classes=num_classes, pretrained=False)
+    return SegmentationModule.load_from_checkpoint(str(checkpoint_path), model=backbone)
 {%- elif cookiecutter.task_type == "nlp" %}
     from ..models import NLPModule
-    return NLPModule.load_from_checkpoint(str(checkpoint_path))
+
+    ckpt = torch.load(str(checkpoint_path), map_location="cpu", weights_only=False)
+    hp = ckpt.get("hyper_parameters", {})
+    model_name = hp.get("model_name")
+    num_labels = hp.get("num_labels")
+    if model_name is None or num_labels is None:
+        raise ValueError(
+            "Checkpoint missing model_name/num_labels hparams — "
+            "re-train after upgrading NLPModule."
+        )
+    backbone = build_model(model_name, num_labels=num_labels)
+    return NLPModule.load_from_checkpoint(str(checkpoint_path), model=backbone)
+{%- endif %}
 {%- elif cookiecutter.task_type == "keypoints" %}
     from ultralytics import YOLO
     return YOLO(str(checkpoint_path))

@@ -29,7 +29,12 @@ def main(cfg: DictConfig) -> None:
 
     dm = ImageDataModule(**cfg.data)
     net = build_model(cfg.model.name, num_classes=cfg.model.num_classes)
-    lit = ClassificationModule(net, num_classes=cfg.model.num_classes, lr=cfg.model.lr)
+    lit = ClassificationModule(
+        net,
+        num_classes=cfg.model.num_classes,
+        lr=cfg.model.lr,
+        model_name=cfg.model.name,
+    )
 {%- endif %}
 {%- if cookiecutter.task_type == "segmentation" %}
     from ..data import ImageDataModule
@@ -37,7 +42,12 @@ def main(cfg: DictConfig) -> None:
 
     dm = ImageDataModule(**cfg.data)
     net = build_model(cfg.model.name, num_classes=cfg.model.num_classes)
-    lit = SegmentationModule(net, num_classes=cfg.model.num_classes, lr=cfg.model.lr)
+    lit = SegmentationModule(
+        net,
+        num_classes=cfg.model.num_classes,
+        lr=cfg.model.lr,
+        model_name=cfg.model.name,
+    )
 {%- endif %}
 {%- if cookiecutter.task_type == "nlp" %}
     from transformers import AutoTokenizer
@@ -52,7 +62,12 @@ def main(cfg: DictConfig) -> None:
     train_loader = DataLoader(train_ds, batch_size=cfg.data.batch_size, shuffle=True)
     val_loader = DataLoader(val_ds, batch_size=cfg.data.batch_size)
     net = build_model(cfg.model.name, num_labels=cfg.model.num_labels)
-    lit = NLPModule(net, num_labels=cfg.model.num_labels, lr=cfg.model.lr)
+    lit = NLPModule(
+        net,
+        num_labels=cfg.model.num_labels,
+        lr=cfg.model.lr,
+        model_name=cfg.model.name,
+    )
 {%- endif %}
 {%- if cookiecutter.task_type == "keypoints" %}
     from ultralytics import YOLO
@@ -82,7 +97,11 @@ def main(cfg: DictConfig) -> None:
             mode=cfg.trainer.monitor_mode,
             save_top_k=1,
         ),
-        EarlyStopping(monitor=cfg.trainer.monitor, mode=cfg.trainer.monitor_mode, patience=cfg.trainer.patience),
+        EarlyStopping(
+            monitor=cfg.trainer.monitor,
+            mode=cfg.trainer.monitor_mode,
+            patience=cfg.trainer.patience,
+        ),
     ]
     mlflow_logger = MLFlowLogger(
         experiment_name=cfg.experiment_name, tracking_uri=cfg.trainer.tracking_uri
