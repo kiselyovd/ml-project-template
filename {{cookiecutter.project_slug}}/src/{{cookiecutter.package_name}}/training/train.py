@@ -113,7 +113,7 @@ def main(cfg: DictConfig) -> None:
         callbacks=callbacks,
         logger=mlflow_logger,
         log_every_n_steps=cfg.trainer.log_every_n_steps,
-        deterministic=True,
+        deterministic="warn",
     )
 {%- if cookiecutter.task_type == "nlp" %}
     trainer.fit(lit, train_loader, val_loader)
