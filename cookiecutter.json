@@ -15,7 +15,6 @@
   "license": ["MIT", "Apache-2.0"],
   "year": "2026",
   "_copy_without_render": [
-    ".github/workflows/*.yml",
-    "docs/model_card.md.j2"
+    ".github/workflows/*.yml"
   ]
 }

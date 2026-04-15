@@ -1,25 +1,136 @@
 ---
 license: mit
-tags:
-  - machine-learning
-library_name: pytorch
+{% raw %}library_name: {{ library_name }}{% endraw %}
+
+{% raw %}pipeline_tag: {{ pipeline_tag }}{% endraw %}
+
+{% raw %}{% if base_model %}base_model: {{ base_model }}
+{% endif %}{% endraw %}tags:
+{% raw %}{% for tag in tags %}  - {{ tag }}
+{% endfor %}{% endraw %}datasets:
+{% raw %}{% for ds in datasets %}  - {{ ds }}
+{% endfor %}{% endraw %}
+{% if cookiecutter.task_type == "segmentation" %}metrics:
+  - dice
+  - iou
+{% elif cookiecutter.task_type == "image_classification" or cookiecutter.task_type == "classification" %}metrics:
+  - accuracy
+  - f1
+{% elif cookiecutter.task_type == "nlp" %}metrics:
+  - accuracy
+  - f1
+{% elif cookiecutter.task_type == "tabular" %}metrics:
+  - accuracy
+  - f1
+  - roc_auc
+{% else %}metrics:
+  - accuracy
+  - f1
+{% endif %}
+{% raw %}{% if widget_examples %}widget:
+{% for ex in widget_examples %}  - src: {{ ex.src }}
+    title: {{ ex.title }}
+{% endfor %}{% endif %}{% endraw %}
+
+model-index:
+{% raw %}  - name: {{ repo_id }}
+    results:
+{% for task_result in metric_results %}      - task:
+          type: {{ task_result.task_type }}
+        dataset:
+          type: {{ task_result.dataset_type }}
+          name: {{ task_result.dataset_name }}
+        metrics:
+{% for m in task_result.metrics %}          - type: {{ m.type }}
+            value: {{ m.value }}
+{% endfor %}{% endfor %}{% endraw %}
 ---
 
-# Model Card
+# {{ cookiecutter.project_name }}
 
-{{ model_description }}
+{% raw %}{{ model_description }}{% endraw %}
 
 ## Metrics
 
-{{ metrics_table }}
+{% raw %}{{ metrics_table }}{% endraw %}
 
 ## Usage
 
-```python
+{% if cookiecutter.task_type == "segmentation" %}
+{% raw %}```python
+from transformers import AutoImageProcessor, AutoModelForSemanticSegmentation
+import torch
+from PIL import Image
+
+processor = AutoImageProcessor.from_pretrained("{{ repo_id }}")
+model = AutoModelForSemanticSegmentation.from_pretrained("{{ repo_id }}")
+
+image = Image.open("your_image.png")
+inputs = processor(images=image, return_tensors="pt")
+with torch.no_grad():
+    outputs = model(**inputs)
+logits = outputs.logits  # shape (batch_size, num_labels, height, width)
+```{% endraw %}
+{% elif cookiecutter.task_type == "image_classification" or cookiecutter.task_type == "classification" %}
+{% raw %}```python
+from transformers import AutoImageProcessor, AutoModelForImageClassification
+import torch
+from PIL import Image
+
+processor = AutoImageProcessor.from_pretrained("{{ repo_id }}")
+model = AutoModelForImageClassification.from_pretrained("{{ repo_id }}")
+
+image = Image.open("your_image.png")
+inputs = processor(images=image, return_tensors="pt")
+with torch.no_grad():
+    logits = model(**inputs).logits
+predicted_class = logits.argmax(-1).item()
+print(model.config.id2label[predicted_class])
+```{% endraw %}
+{% elif cookiecutter.task_type == "nlp" %}
+{% raw %}```python
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
+
+tokenizer = AutoTokenizer.from_pretrained("{{ repo_id }}")
+model = AutoModelForSequenceClassification.from_pretrained("{{ repo_id }}")
+
+inputs = tokenizer("Your text here", return_tensors="pt")
+with torch.no_grad():
+    logits = model(**inputs).logits
+predicted_class = logits.argmax(-1).item()
+print(model.config.id2label[predicted_class])
+```{% endraw %}
+{% elif cookiecutter.task_type == "tabular" %}
+{% raw %}```python
+import joblib
+import pandas as pd
+
+model = joblib.load("model.joblib")
+df = pd.read_csv("your_data.csv")
+predictions = model.predict(df)
+```{% endraw %}
+{% else %}
+{% raw %}```python
 from huggingface_hub import snapshot_download
-local = snapshot_download("REPO_ID")
-```
 
-## Source
+local_dir = snapshot_download("{{ repo_id }}")
+print(f"Model downloaded to: {local_dir}")
+```{% endraw %}
+{% endif %}
 
-{{ github_url }}
+## Training Data
+
+{% raw %}{% if hf_dataset %}Trained on [{{ dataset_name or hf_dataset }}](https://huggingface.co/datasets/{{ hf_dataset }}).
+{% else %}Training dataset details not specified.
+{% endif %}{% endraw %}
+
+## Source Code
+
+{% raw %}[GitHub Repository]({{ github_url }}){% endraw %}
+
+## Intended Use
+
+This model is provided for research and educational purposes. The authors make no warranties about its suitability for any particular application. Users are responsible for evaluating the model's fitness for their use case, including fairness, safety, and compliance with applicable regulations.
+
+> **Note:** This model card was generated from the [ml-project-template](https://github.com/kiselyovd/ml-project-template) scaffold.
