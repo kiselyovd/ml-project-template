@@ -12,6 +12,7 @@ dev = [
   "pytest>=8.0.0",
   "pytest-cookies>=0.7.0",
   "pyyaml>=6.0",
+  "ruff>=0.15",
 ]
 
 [tool.pytest.ini_options]
