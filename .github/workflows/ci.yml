@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  meta-tests:
+    name: Template meta-tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+      - name: Install deps
+        run: uv sync --all-groups --python ${{ matrix.python-version }}
+      - name: Ruff check
+        run: uv run ruff check .
+      - name: Ruff format check
+        run: uv run ruff format --check .
+      - name: Meta-tests (pytest-cookies)
+        run: uv run pytest -v
+
+  smoke-render:
+    name: Cookiecutter smoke render
+    runs-on: ubuntu-latest
+    needs: meta-tests
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Set up Python
+        run: uv python install 3.13
+      - name: Install cookiecutter
+        run: uv tool install cookiecutter
+      - name: Render classification scaffold
+        run: |
+          uv tool run cookiecutter . --no-input --output-dir /tmp/out \
+            project_name="smoke-classifier" \
+            project_slug="smoke-classifier" \
+            package_name="smoke_classifier" \
+            task_type=classification \
+            framework=pytorch \
+            has_serving=true
+          test -d /tmp/out/smoke-classifier
+          test -f /tmp/out/smoke-classifier/pyproject.toml
+          test -f /tmp/out/smoke-classifier/Dockerfile
+          test -d /tmp/out/smoke-classifier/.github/workflows
+      - name: Render tabular scaffold
+        run: |
+          uv tool run cookiecutter . --no-input --output-dir /tmp/out-tabular \
+            project_name="smoke-tabular" \
+            project_slug="smoke-tabular" \
+            package_name="smoke_tabular" \
+            task_type=tabular \
+            framework=sklearn \
+            has_serving=false
+          test -d /tmp/out-tabular/smoke-tabular
+          ! test -f /tmp/out-tabular/smoke-tabular/docker-compose.yml
+
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run actionlint
+        uses: reviewdog/action-actionlint@v1
+        with:
+          reporter: github-pr-check
+          fail_level: error
