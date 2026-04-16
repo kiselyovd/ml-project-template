@@ -1,4 +1,5 @@
 """Post-generation cleanup and bootstrapping."""
+
 from __future__ import annotations
 
 import shutil

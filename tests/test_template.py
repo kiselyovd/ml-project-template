@@ -1,4 +1,5 @@
 """Meta-tests: verify the cookiecutter template generates correctly."""
+
 from __future__ import annotations
 
 

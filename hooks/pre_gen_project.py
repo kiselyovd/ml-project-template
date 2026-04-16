@@ -1,4 +1,5 @@
 """Validate cookiecutter inputs before project generation."""
+
 from __future__ import annotations
 
 import re

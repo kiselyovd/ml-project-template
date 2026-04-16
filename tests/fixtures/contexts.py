@@ -1,4 +1,5 @@
 """Reference cookiecutter contexts for parameterized template tests."""
+
 from __future__ import annotations
 
 CLASSIFICATION = {
