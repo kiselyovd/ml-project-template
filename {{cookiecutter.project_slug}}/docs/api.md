@@ -17,7 +17,6 @@ Auto-generated reference for the `{{ cookiecutter.package_name }}` package via [
 
 ::: {{ cookiecutter.package_name }}.models.factory
 ::: {{ cookiecutter.package_name }}.models.lightning_module
-::: {{ cookiecutter.package_name }}.models.metrics
 ::: {{ cookiecutter.package_name }}.models.sklearn_pipeline
 
 ## Training
