@@ -56,12 +56,25 @@ def try_init_git() -> None:
         print(f"WARN: git init skipped: {exc}", file=sys.stderr)
 
 
+def try_init_dvc() -> None:
+    """Initialise DVC so `dvc add` works out of the box.
+
+    Creates `.dvc/config` + `.dvc/.gitignore`, registers them with git so
+    downstream `dvc add` produces sidecar `.dvc` files that stay tracked.
+    """
+    try:
+        subprocess.run(["dvc", "init", "--no-scm"], check=True, cwd=PROJECT_ROOT)
+    except (subprocess.CalledProcessError, FileNotFoundError) as exc:
+        print(f"WARN: dvc init skipped: {exc}", file=sys.stderr)
+
+
 def main() -> None:
     if FRAMEWORK == "sklearn" or TASK_TYPE == "tabular":
         prune_for_tabular()
     else:
         prune_for_non_tabular()
     prune_serving()
+    try_init_dvc()
     try_init_git()
     print(f"Project {PROJECT_ROOT.name} ready. Next: cd {PROJECT_ROOT.name} && make setup")
 

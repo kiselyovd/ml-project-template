@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v3
-      - run: uv sync --group docs
-      - run: uv run mkdocs gh-deploy --force
+      - run: uv sync --all-groups
+      - run: uv run --all-groups mkdocs gh-deploy --force

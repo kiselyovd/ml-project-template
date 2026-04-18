@@ -19,5 +19,10 @@ data/raw/*
 data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
+# Keep DVC sidecar files tracked even when the data itself is ignored
+!data/raw/*.dvc
+!data/processed/*.dvc
+!data/raw/.gitignore
+!data/processed/.gitignore
 .env
 .env.local
