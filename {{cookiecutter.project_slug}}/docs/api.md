@@ -8,28 +8,40 @@ Auto-generated reference for the `{{ cookiecutter.package_name }}` package via [
 
 ## Data
 
-::: {{ cookiecutter.package_name }}.data
+::: {{ cookiecutter.package_name }}.data.datamodule
+::: {{ cookiecutter.package_name }}.data.dataset
+::: {{ cookiecutter.package_name }}.data.prepare
+::: {{ cookiecutter.package_name }}.data.transforms
 
 ## Models
 
-::: {{ cookiecutter.package_name }}.models
+::: {{ cookiecutter.package_name }}.models.factory
+::: {{ cookiecutter.package_name }}.models.lightning_module
+::: {{ cookiecutter.package_name }}.models.metrics
+::: {{ cookiecutter.package_name }}.models.sklearn_pipeline
 
 ## Training
 
-::: {{ cookiecutter.package_name }}.training
+::: {{ cookiecutter.package_name }}.training.train
 
 ## Evaluation
 
-::: {{ cookiecutter.package_name }}.evaluation
+::: {{ cookiecutter.package_name }}.evaluation.evaluate
 
 ## Inference
 
-::: {{ cookiecutter.package_name }}.inference
+::: {{ cookiecutter.package_name }}.inference.predict
 
 ## Serving
 
-::: {{ cookiecutter.package_name }}.serving
+::: {{ cookiecutter.package_name }}.serving.dependencies
+::: {{ cookiecutter.package_name }}.serving.errors
+::: {{ cookiecutter.package_name }}.serving.main
+::: {{ cookiecutter.package_name }}.serving.routes
+::: {{ cookiecutter.package_name }}.serving.schemas
 
 ## Utilities
 
-::: {{ cookiecutter.package_name }}.utils
+::: {{ cookiecutter.package_name }}.utils.hf_hub
+::: {{ cookiecutter.package_name }}.utils.logging
+::: {{ cookiecutter.package_name }}.utils.seed
