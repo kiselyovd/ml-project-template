@@ -1,4 +1,4 @@
-"""Inference CLI — load a checkpoint and predict on input(s)."""
+"""Inference CLI - load a checkpoint and predict on input(s)."""
 from __future__ import annotations
 
 import argparse
@@ -26,7 +26,7 @@ def load_model(checkpoint_path: str | Path):
     num_classes = hp.get("num_classes")
     if model_name is None or num_classes is None:
         raise ValueError(
-            "Checkpoint missing model_name/num_classes hparams — "
+            "Checkpoint missing model_name/num_classes hparams - "
             "re-train after upgrading ClassificationModule."
         )
     backbone = build_model(model_name, num_classes=num_classes, pretrained=False)
@@ -40,7 +40,7 @@ def load_model(checkpoint_path: str | Path):
     num_classes = hp.get("num_classes")
     if model_name is None or num_classes is None:
         raise ValueError(
-            "Checkpoint missing model_name/num_classes hparams — "
+            "Checkpoint missing model_name/num_classes hparams - "
             "re-train after upgrading SegmentationModule."
         )
     backbone = build_model(model_name, num_classes=num_classes, pretrained=False)
@@ -54,7 +54,7 @@ def load_model(checkpoint_path: str | Path):
     num_labels = hp.get("num_labels")
     if model_name is None or num_labels is None:
         raise ValueError(
-            "Checkpoint missing model_name/num_labels hparams — "
+            "Checkpoint missing model_name/num_labels hparams - "
             "re-train after upgrading NLPModule."
         )
     backbone = build_model(model_name, num_labels=num_labels)

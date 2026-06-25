@@ -25,8 +25,8 @@
 
 | Модель | Метрика 1 | Метрика 2 |
 |---|---|---|
-| Основная | — | — |
-| Baseline | — | — |
+| Основная | - | - |
+| Baseline | - | - |
 
 ## Быстрый старт
 
@@ -58,4 +58,4 @@ src/{{ cookiecutter.package_name }}/
 
 ## Лицензия
 
-{{ cookiecutter.license }} — см. [LICENSE](LICENSE).
+{{ cookiecutter.license }} - см. [LICENSE](LICENSE).

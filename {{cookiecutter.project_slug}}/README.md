@@ -25,8 +25,8 @@ Fill in after training. Include metrics table with main model vs baseline.
 
 | Model | Metric 1 | Metric 2 |
 |---|---|---|
-| Main | — | — |
-| Baseline | — | — |
+| Main | - | - |
+| Baseline | - | - |
 
 ## Quick Start
 
@@ -58,4 +58,4 @@ src/{{ cookiecutter.package_name }}/
 
 ## License
 
-{{ cookiecutter.license }} — see [LICENSE](LICENSE).
+{{ cookiecutter.license }} - see [LICENSE](LICENSE).

@@ -21,4 +21,4 @@ make test
 
 ## Лицензия
 
-MIT — см. [LICENSE](LICENSE).
+MIT - см. [LICENSE](LICENSE).

@@ -5,7 +5,7 @@ import sys
 
 
 def main() -> int:
-    print("{{ cookiecutter.project_name }} — use make train / make evaluate / make serve")
+    print("{{ cookiecutter.project_name }} - use make train / make evaluate / make serve")
     return 0
 
 

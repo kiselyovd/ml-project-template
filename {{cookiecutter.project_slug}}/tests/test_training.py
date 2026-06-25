@@ -1,4 +1,4 @@
-"""Training smoke — one-batch overfit."""
+"""Training smoke - one-batch overfit."""
 from __future__ import annotations
 
 {% if cookiecutter.framework == "pytorch" and cookiecutter.task_type == "classification" -%}
