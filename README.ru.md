@@ -1,5 +1,7 @@
 # ml-project-template
 
+[Интерактивная витрина проекта](https://kiselyovd.github.io/showcase/ml-project-template/)
+
 [![CI](https://img.shields.io/github/actions/workflow/status/kiselyovd/ml-project-template/ci.yml?branch=main&label=CI&style=for-the-badge&logo=github)](https://github.com/kiselyovd/ml-project-template/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)

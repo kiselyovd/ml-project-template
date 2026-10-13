@@ -1,11 +1,12 @@
 # ml-project-template
 
-[![CI](https://img.shields.io/github/actions/workflow/status/kiselyovd/ml-project-template/ci.yml?branch=main&label=CI&style=for-the-badge&logo=github)](https://github.com/kiselyovd/ml-project-template/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
-[![Python 3.12+](https://img.shields.io/badge/Python-3.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Cookiecutter](https://img.shields.io/badge/scaffold-cookiecutter-D4AA00?style=for-the-badge&logo=cookiecutter&logoColor=white)](https://www.cookiecutter.io/)
+[CI](https://github.com/kiselyovd/ml-project-template/actions/workflows/ci.yml) · [MIT](LICENSE) · Python 3.12 / 3.13
 
-Production-grade cookiecutter template for ML projects with PyTorch Lightning / scikit-learn, Hydra, MLflow, DVC, FastAPI serving, Docker, CI/CD, and HuggingFace Hub publishing.
+A Cookiecutter engineering scaffold for ML projects with PyTorch Lightning / scikit-learn, Hydra, MLflow, DVC, FastAPI serving, Docker, CI/CD, and HuggingFace Hub publishing.
+
+[![Interactive scaffold explorer](docs/images/showcase.png)](https://kiselyovd.github.io/showcase/ml-project-template/)
+
+**[Explore the scaffold](https://kiselyovd.github.io/showcase/ml-project-template/)** — choose one of the five canonical task presets, API serving, and Python version. Inspect the source-derived file choices and copy a command pinned to the template revision.
 
 **Russian version:** [README.ru.md](README.ru.md)
 
