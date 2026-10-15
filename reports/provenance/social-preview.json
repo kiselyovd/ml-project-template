@@ -1,16 +1,51 @@
 {
+  "schema_version": 2,
   "asset": "docs/images/social-preview.png",
-  "sha256": "4f018cf508161035dcce755d05a9f60f5b0b1ff4e4444402e3c0fd1ce9472e4d",
   "width": 1280,
   "height": 640,
-  "bytes": 235198,
-  "kind": "project evidence composition; no generated model output",
-  "note": "Source-backed scaffold explorer; code MIT",
-  "sources": [
+  "kind": "identity preview composed from a reviewed actual project figure",
+  "source": {
+    "repository": "kiselyovd/ml-project-template",
+    "revision": "4c67b1319f98549ba2fa9bf0dcdf0b56a49a7619",
+    "path": "docs/images/showcase.png",
+    "sha256": "867c560b4fc5cf4ff27182a863a5c59ea357cda0a6b11b79452633a472465252"
+  },
+  "source_figure_provenance": {
+    "asset": "docs/images/social-preview.png",
+    "sha256": "4f018cf508161035dcce755d05a9f60f5b0b1ff4e4444402e3c0fd1ce9472e4d",
+    "width": 1280,
+    "height": 640,
+    "bytes": 235198,
+    "kind": "project evidence composition; no generated model output",
+    "note": "Source-backed scaffold explorer; code MIT",
+    "sources": [
+      {
+        "path": "docs\\images\\showcase.png",
+        "sha256": "867c560b4fc5cf4ff27182a863a5c59ea357cda0a6b11b79452633a472465252"
+      }
+    ],
+    "renderer": "portfolio-integrity-2026-10-15/render_previews.py"
+  },
+  "renderer": {
+    "repository": "kiselyovd/kiselyovd.github.io",
+    "revision": "7efec9a44382677b58cb657843446da104d8bf57",
+    "path": "automation/render_social_previews.py",
+    "sha256": "381021e708028e2bf42f0f97ab32d66df71747fdfced5fda3922bc06f805488b"
+  },
+  "outputs": [
     {
-      "path": "docs\\images\\showcase.png",
-      "sha256": "867c560b4fc5cf4ff27182a863a5c59ea357cda0a6b11b79452633a472465252"
+      "project": "ml-project-template",
+      "theme": "dark",
+      "path": "docs/images/social-preview.png",
+      "sha256": "f0728f6743159fa47c07bc49b20eebcf6d817d3cbf1622049a355453a33d30af",
+      "bytes": 136987
+    },
+    {
+      "project": "ml-project-template",
+      "theme": "light",
+      "path": "docs/images/social-preview-light.png",
+      "sha256": "a36ce7d7b1ccb86abb0a5d2846ac010e6708d55caf6d9a5f9b305b700d73788d",
+      "bytes": 138000
     }
-  ],
-  "renderer": "portfolio-integrity-2026-10-15/render_previews.py"
+  ]
 }
