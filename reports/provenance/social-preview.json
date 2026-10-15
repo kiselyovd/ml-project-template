@@ -1,0 +1,16 @@
+{
+  "asset": "docs/images/social-preview.png",
+  "sha256": "4f018cf508161035dcce755d05a9f60f5b0b1ff4e4444402e3c0fd1ce9472e4d",
+  "width": 1280,
+  "height": 640,
+  "bytes": 235198,
+  "kind": "project evidence composition; no generated model output",
+  "note": "Source-backed scaffold explorer; code MIT",
+  "sources": [
+    {
+      "path": "docs\\images\\showcase.png",
+      "sha256": "867c560b4fc5cf4ff27182a863a5c59ea357cda0a6b11b79452633a472465252"
+    }
+  ],
+  "renderer": "portfolio-integrity-2026-10-15/render_previews.py"
+}
